@@ -16,13 +16,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="p-6 lg:p-12 h-screen">
-      <Header/>
       <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
+            <Header/>
         {children}
         </ThemeProvider>
       </body>
