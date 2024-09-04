@@ -1,0 +1,2 @@
+# MetaVault
+Wallet for cryptocurrency
