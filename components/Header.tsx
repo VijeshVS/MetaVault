@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import React from 'react'
 import DarkModeSwitch from './DarkModeSwitch'
+import { Label } from './ui/label'
 
 const Header = () => {
   return (
@@ -13,7 +14,7 @@ const Header = () => {
             />
             <AvatarFallback className="h-12 w-12 rounded-full">CN</AvatarFallback>
           </Avatar>
-          <h1 className="text-3xl font-bold">MetaVault</h1>
+          <Label className="text-3xl font-bold">MetaVault</Label>
         </div>
         <DarkModeSwitch />
       </div>
