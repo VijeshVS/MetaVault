@@ -1,13 +1,19 @@
 "use client"
+import { Button } from "@/components/ui/button";
+import WalletCard from "@/components/WalletCard";
 import WalletEmptyComponent from "@/components/WalletEmptyComponent";
+import { walletAtom } from "@/store/store";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import { useRecoilValue } from "recoil";
 import { toast } from "sonner";
 
 
 
 const page = () => {
   const router = useRouter();
+
+  const wallets = useRecoilValue(walletAtom);
 
   useEffect(()=>{
     const phraseString: string | null = localStorage.getItem('phrases')
@@ -19,10 +25,18 @@ const page = () => {
   },[])
 
   return (
-    <main className="h-full flex flex-col space-y-4 items-center justify-center">
-      {/* <Button className="w-fit self-end mt-8">Create Wallet</Button> */}
+    wallets.length > 0?<main className="h-full flex flex-col mt-8">
+      
+      <Button onClick={()=>router.push('/create-wallet')} className="self-end">Create wallet</Button>
+      <div className="flex mt-6 flex-col space-y-2">
+      {wallets.map((w)=>{
+        return <WalletCard key={w.privateKey} token={w.token} balance={w.balance} publicKey={w.publicKey} privateKey={w.privateKey}/>
+      })}
+      </div>
+    </main>:<main className="h-full flex flex-col mt-8 justify-center items-center">
       <WalletEmptyComponent/>
     </main>
+    
   );
 };
 

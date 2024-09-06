@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
+
 import Header from "@/components/Header";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "MetaVault",
@@ -17,16 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="p-6 lg:p-12 h-screen">
-      <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Header/>
-        {children}
-        <Toaster />
-        </ThemeProvider>
+        <Providers>
+          <Header />
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

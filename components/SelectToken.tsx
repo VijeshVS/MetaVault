@@ -3,16 +3,21 @@ import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { createWallet } from '@/lib/utils';
+import { useRecoilState } from 'recoil';
+import { walletAtom } from '@/store/store';
+import { walletType } from '@/interfaces/types';
+
 
 const SelectToken = () => {
   const [token,setToken] = useState<string>("");
   const router = useRouter();
-
+  const [wallets,setWallets] = useRecoilState(walletAtom);
+  
   useEffect(()=>{
     if(token != ""){
-      // Create wallet
-
-      // route to dashbaord
+      const wallet: walletType | {} = createWallet(localStorage.getItem('phrases'),token,wallets.length)
+      setWallets([...wallets,wallet as walletType])
       router.push("/dashboard")
       toast.success(`${token} wallet has been created successfully`,{
         duration: 2000
