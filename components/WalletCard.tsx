@@ -1,0 +1,101 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Toggle } from "@/components/ui/toggle";
+import { Eye } from "lucide-react";
+import { toast } from "sonner";
+
+function getHidePrivatePass(text: string) {
+  let pass = "";
+  for (let i = 0; i < text.length; i++) pass += "•";
+
+  return pass;
+}
+
+const WalletCard = ({
+  token,
+  balance,
+  publicKey,
+  privateKey,
+}: {
+  token: string;
+  balance: number;
+  publicKey: string;
+  privateKey: string;
+}) => {
+  const [reveal, setReveal] = useState(false);
+  const [privateCurrent, setprivateCurrent] = useState(
+    getHidePrivatePass(privateKey)
+  );
+
+  useEffect(() => {
+    if (reveal) {
+      setprivateCurrent(privateKey);
+    } else {
+      setprivateCurrent(getHidePrivatePass(privateKey));
+    }
+  }, [reveal]);
+
+  return (
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle className="text-3xl">{token} Wallet</CardTitle>
+        <CardDescription className="text-lg">
+          Balance: {balance}$
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col w-full space-y-3 text-xl">
+          <div className="flex w-full border-2 p-3 rounded-xl">
+            <h1 className="font-semibold">Public Key: </h1>
+            <h1
+              className="ml-2 font-semibold cursor-pointer"
+              onClick={() => {
+                toast.success("Public key has been copied!!", {
+                  duration: 2000,
+                });
+                navigator.clipboard.writeText(publicKey);
+              }}
+            >
+              {publicKey}
+            </h1>
+          </div>
+          <div className="flex justify-between w-full items-center border-2 p-3 rounded-xl">
+            <div className="flex space-x-2 items-center">
+              <h1 className="font-semibold">Private Key:</h1>
+              <h1
+                onClick={() => {
+                  toast.success("Private key has been copied!!", {
+                    duration: 2000,
+                  });
+                  navigator.clipboard.writeText(privateKey);
+                }}
+                className="font-semibold cursor-pointer"
+              >
+                {privateCurrent}
+              </h1>
+            </div>
+            <Toggle
+              onClick={() => {
+                setReveal(!reveal);
+              }}
+              aria-label="Toggle bold"
+            >
+              <Eye className="h-6 w-6" />
+            </Toggle>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-between"></CardFooter>
+    </Card>
+  );
+};
+
+export default WalletCard;
