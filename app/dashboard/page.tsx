@@ -28,12 +28,12 @@ const page = () => {
     wallets.length > 0?<main className="h-full flex flex-col mt-8">
       
       <Button onClick={()=>router.push('/create-wallet')} className="self-end">Create wallet</Button>
-      <div className="flex mt-6 flex-col space-y-2">
+      <div className="flex flex-col space-y-2 py-6">
       {wallets.map((w)=>{
         return <WalletCard key={w.privateKey} token={w.token} balance={w.balance} publicKey={w.publicKey} privateKey={w.privateKey}/>
       })}
       </div>
-    </main>:<main className="h-full flex flex-col mt-8 justify-center items-center">
+    </main>:<main className="h-full flex flex-col justify-center items-center">
       <WalletEmptyComponent/>
     </main>
     
