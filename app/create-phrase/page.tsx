@@ -2,7 +2,7 @@ import SelectPhraseCard from '@/components/SelectPhraseCard'
 import { Label } from '@radix-ui/react-label'
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
     <main className="h-full flex flex-col space-y-4 justify-center items-center">
         <SelectPhraseCard/>
@@ -10,4 +10,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -8,9 +8,7 @@ import React, { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { toast } from "sonner";
 
-
-
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   const wallets = useRecoilValue(walletAtom);
@@ -40,4 +38,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

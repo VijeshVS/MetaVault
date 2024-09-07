@@ -1,7 +1,7 @@
 import SelectToken from '@/components/SelectToken'
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
     <main className='mt-16'>
         <SelectToken/>
@@ -9,4 +9,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
