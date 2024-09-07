@@ -1,19 +1,22 @@
+"use client"
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import React from 'react'
 import DarkModeSwitch from './DarkModeSwitch'
 import { Label } from './ui/label'
+import { Lock } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+
 
 const Header = () => {
+  const router = useRouter();
+
   return (
     <div className="flex justify-between">
         <div className="flex items-center space-x-3">
           <Avatar>
-            <AvatarImage
-              className="h-12 w-12 rounded-full"
-              src="./icon.svg"
-            />
+            <Lock className='w-8 h-8'/>
           </Avatar>
-          <Label className="text-3xl font-bold">MetaVault</Label>
+          <Label onClick={()=>router.push('/')} className="text-3xl font-bold cursor-pointer">MetaVault</Label>
         </div>
         <DarkModeSwitch />
       </div>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import {
   Card,
@@ -8,36 +8,37 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-const {generateMnemonic, mnemonicToSeedSync} = require("bip39") ;
-
+import { generateMnemonic } from "bip39";
 
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+
 const SelectPhraseCard = () => {
   const [phraseWords, setPhraseWords] = useState<string[]>(Array(12).fill(""));
-  const [submitDisabled,setSubmitDisabled] = useState(true)
-  const router = useRouter()
+  const [submitDisabled, setSubmitDisabled] = useState(true);
+  const router = useRouter();
 
-  function confirmPhrases(){
-    localStorage.setItem('phrases',JSON.stringify(phraseWords))
-    router.push('/dashboard')
-    toast.success("Phrases set successfully")
+  function confirmPhrases() {
+    localStorage.setItem("phrases", JSON.stringify(phraseWords));
+    router.push("/dashboard");
+    toast.success("Phrases set successfully");
   }
 
-  function fillPhrases(){
-    const mnemonic:string = generateMnemonic();
-    const words:string[] = mnemonic.split(" ");
-    setPhraseWords(words)
+  function fillPhrases() {
+    const mnemonic: string = generateMnemonic();
+    const words: string[] = mnemonic.split(" ");
+    setPhraseWords(words);
   }
 
-  useEffect(()=>{
-    let state = false
-    for(let i = 0;i<phraseWords.length;i++) if(phraseWords[i] == "") state = true
-    setSubmitDisabled(state)
-  },[phraseWords])
+  useEffect(() => {
+    let state = false;
+    for (let i = 0; i < phraseWords.length; i++)
+      if (phraseWords[i] == "") state = true;
+    setSubmitDisabled(state);
+  }, [phraseWords]);
 
   return (
     <Card className="w-[550px]">
@@ -68,8 +69,10 @@ const SelectPhraseCard = () => {
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button onClick={confirmPhrases} disabled={submitDisabled}>Submit</Button>
-        <Button onClick={()=>fillPhrases()}>Generate Random</Button>
+        <Button onClick={confirmPhrases} disabled={submitDisabled}>
+          Submit
+        </Button>
+        <Button onClick={() => fillPhrases()}>Generate Random</Button>
       </CardFooter>
     </Card>
   );
