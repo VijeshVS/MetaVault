@@ -12,7 +12,6 @@ const Header = () => {
               className="h-12 w-12 rounded-full"
               src="./icon.svg"
             />
-            <AvatarFallback className="h-12 w-12 rounded-full">CN</AvatarFallback>
           </Avatar>
           <Label className="text-3xl font-bold">MetaVault</Label>
         </div>
