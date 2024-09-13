@@ -24,12 +24,12 @@ const Page = () => {
 
   return wallets.length > 0 ? (
     <main className="h-full flex flex-col mt-8">
-      <Button
-        onClick={() => router.push("/create-wallet")}
-        className="self-end"
-      >
-        Create wallet
-      </Button>
+      <div className="flex justify-start lg:justify-end space-x-2 mt-6">
+        <Button onClick={()=>router.push('/import-wallet')}>Import wallet</Button>
+        <Button onClick={() => router.push("/create-wallet")}>
+          Create wallet
+        </Button>
+      </div>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

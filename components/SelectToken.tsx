@@ -39,15 +39,12 @@ const SelectToken = () => {
       }}
       className="flex flex-col space-y-4"
     >
-      <h1 className="text-xl font-medium">
+      <h1 className="text-2xl font-semibold">
         Select the token for which the wallet has to be created
       </h1>
       <div className="flex space-x-4">
-        <Button onClick={() => setToken("Solana")} variant="outline">
+        <Button size="lg" className="text-xl" onClick={() => setToken("Solana")} variant="outline">
           Solana
-        </Button>
-        <Button onClick={() => setToken("Ethereum")} variant="outline">
-          Ethereum
         </Button>
       </div>
     </motion.div>

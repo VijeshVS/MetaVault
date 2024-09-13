@@ -1,3 +1,4 @@
+"use client"
 import SelectToken from '@/components/SelectToken'
 import React from 'react'
 

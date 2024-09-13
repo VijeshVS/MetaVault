@@ -52,11 +52,11 @@ const WalletCard = ({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col w-full space-y-3 text-xl">
-          <div className="flex w-full border-2 p-3 rounded-xl">
+        <div className="flex flex-col w-full space-y-3 text-md lg:text-xl">
+          <div className="flex w-full border-2 p-2 lg:p-3 rounded-xl">
             <h1 className="font-semibold">Public Key: </h1>
             <h1
-              className="ml-2 font-semibold cursor-pointer"
+              className="ml-2 hidden lg:block font-semibold cursor-pointer"
               onClick={() => {
                 toast.success("Public key has been copied!!", {
                   duration: 2000,
@@ -66,10 +66,22 @@ const WalletCard = ({
             >
               {publicKey}
             </h1>
+
+            <h1
+              className="ml-2 font-semibold cursor-pointer lg:hidden"
+              onClick={() => {
+                toast.success("Public key has been copied!!", {
+                  duration: 2000,
+                });
+                navigator.clipboard.writeText(publicKey);
+              }}
+            >
+              {publicKey.slice(0, 12)} ....
+            </h1>
           </div>
-          <div className="flex justify-between w-full items-center border-2 p-3 rounded-xl">
+          <div className="flex justify-between w-full items-center border-2 p-1 lg:p-2 rounded-xl">
             <div className="flex space-x-2 items-center">
-              <h1 className="font-semibold">Private Key:</h1>
+              <h1 className="font-semibold ml-1">Private Key:</h1>
               <h1
                 onClick={() => {
                   toast.success("Private key has been copied!!", {
@@ -77,9 +89,20 @@ const WalletCard = ({
                   });
                   navigator.clipboard.writeText(privateKey);
                 }}
-                className="font-semibold cursor-pointer"
+                className="font-semibold hidden lg:block cursor-pointer"
               >
                 {privateCurrent}
+              </h1>
+              <h1
+                onClick={() => {
+                  toast.success("Private key has been copied!!", {
+                    duration: 2000,
+                  });
+                  navigator.clipboard.writeText(privateKey);
+                }}
+                className="font-semibold lg:hidden cursor-pointer"
+              >
+                {privateCurrent.slice(0, 12)} {reveal?"....":""}
               </h1>
             </div>
             <Toggle
@@ -88,7 +111,7 @@ const WalletCard = ({
               }}
               aria-label="Toggle bold"
             >
-              <Eye className="h-6 w-6" />
+              <Eye className="h-4 w-4 lg:h-6 lg:w-6" />
             </Toggle>
           </div>
         </div>
