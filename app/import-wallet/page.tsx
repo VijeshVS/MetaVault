@@ -1,9 +1,10 @@
 "use client";
 import ImportWallet from "@/components/ImportWallet";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const Page = () => {
+  
   return (
     <motion.main
       initial={{ opacity: 0, y: -20 }}

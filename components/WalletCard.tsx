@@ -76,7 +76,7 @@ const WalletCard = ({
                 navigator.clipboard.writeText(publicKey);
               }}
             >
-              {publicKey.slice(0, 12)} ....
+              {publicKey.slice(0, 12)}....
             </h1>
           </div>
           <div className="flex justify-between w-full items-center border-2 p-1 lg:p-2 rounded-xl">
@@ -102,7 +102,7 @@ const WalletCard = ({
                 }}
                 className="font-semibold lg:hidden cursor-pointer"
               >
-                {privateCurrent.slice(0, 12)} {reveal?"....":""}
+                {privateCurrent.slice(0, 12)}{reveal?"....":""}
               </h1>
             </div>
             <Toggle
