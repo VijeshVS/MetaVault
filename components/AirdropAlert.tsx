@@ -4,21 +4,19 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { walletType } from "@/interfaces/types";
 import {
   clusterApiUrl,
   Connection,
   LAMPORTS_PER_SOL,
   PublicKey,
 } from "@solana/web3.js";
-import { PlaneIcon, Trophy } from "lucide-react";
+import { ArrowDownFromLine, ArrowDownToLine, HandCoins, PlaneIcon, Trophy } from "lucide-react";
 import { split } from "postcss/lib/list";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -27,52 +25,58 @@ export function DialogDemo({ publicKey }: { publicKey: PublicKey }) {
   const [sol, setSol] = useState("");
 
   async function airdropSOL(publicKey: PublicKey) {
-    toast.info("Airdropping!!");
+    let sl = Number.parseInt(sol);
+    if(sl > 10) sl = 10;
+    toast.info(`Requesting airdrop of ${sl} SOL !!`);
     const connection = new Connection(clusterApiUrl("devnet"));
-    const airdropsignature = await connection.requestAirdrop(
+    let amt = Number.parseInt(sol) * LAMPORTS_PER_SOL;
+    if (amt > 10 * LAMPORTS_PER_SOL) {
+      amt = 10 * LAMPORTS_PER_SOL;
+    }
+    const airdropSignature = await connection.requestAirdrop(
       publicKey,
-      Number.parseInt(sol) * LAMPORTS_PER_SOL
+      amt
     );
-    await connection.confirmTransaction({ signature: airdropsignature } as any);
+    // @ts-ignore
+    await connection.confirmTransaction({signature: airdropSignature});
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline">
-          <PlaneIcon size={20} />
+          <ArrowDownToLine size={20} />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Airdrop SOL</DialogTitle>
+          <DialogTitle className="text-2xl">Airdrop SOL</DialogTitle>
           <DialogDescription>
             Airdrop some SOL for your wallet
           </DialogDescription>
+          <DialogDescription className="font-medium text-red-400">
+            Max airdrop is 10 SOL
+          </DialogDescription>
         </DialogHeader>
-        <div className="grid py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              SOL
-            </Label>
+        <div className="flex flex-col space-y-2 mt-2">
             <Input
               id="name"
-              placeholder="Enter sol"
+              placeholder="Enter amount of SOL"
               className="col-span-3"
               value={sol}
               onChange={(e) => setSol(e.target.value)}
             />
-          </div>
+          
         </div>
         <DialogClose className="flex justify-end cursor-default">
           <Button
             onClick={() => {
               airdropSOL(publicKey)
                 .then(() => {
-                  toast.success("Airdropped successfully!!");
+                  toast.success("Airdropped successfully !!");
                 })
                 .catch((e) => {
-                  toast.error("Airdrop limit breached!!");
+                  toast.error("Airdrop limit breached !!");
                 });
             }}
             type="submit"

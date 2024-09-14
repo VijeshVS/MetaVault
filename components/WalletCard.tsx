@@ -13,6 +13,7 @@ import { Eye } from "lucide-react";
 import { toast } from "sonner";
 import { PublicKey } from "@solana/web3.js";
 import { DialogDemo } from "./AirdropAlert";
+import { SendMoneyAlert } from "./SendMoney";
 
 function getHidePrivatePass(text: string) {
   let pass = "";
@@ -50,7 +51,10 @@ const WalletCard = ({
       <CardHeader>
         <CardTitle className="flex justify-between">
           <h1 className="text-3xl">{token} Wallet</h1>
+          <div className="flex space-x-2">
+          <SendMoneyAlert publicKey={publicKey} privateKey={privateKey}/>
           <DialogDemo publicKey={publicKey} />
+          </div>
         </CardTitle>
         <CardDescription className="text-lg">
           Balance: {balance} SOL

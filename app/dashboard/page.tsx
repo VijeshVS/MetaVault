@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { walletType } from "@/interfaces/types";
 import { clusterApiUrl, Connection } from "@solana/web3.js";
+import { RefreshCcw } from "lucide-react";
 
 async function updateBalances(wallets: walletType[]) {
   const ans = []
@@ -67,6 +68,11 @@ const Page = () => {
         </Button>
         <Button onClick={() => router.push("/create-wallet")}>
           Create wallet
+        </Button>
+        <Button>
+          <RefreshCcw onClick={()=>{
+            // Refresh the wallets to update balance after transactions
+          }} size={20}/>
         </Button>
       </div>
       <motion.div
