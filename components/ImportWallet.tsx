@@ -29,7 +29,7 @@ const ImportWallet = () => {
         ...wallets,
         {
           token: "Solana",
-          publicKey: key_pair.publicKey.toBase58(),
+          publicKey: key_pair.publicKey,
           privateKey: bs.encode(key_pair.secretKey),
           balance: 0,
         },

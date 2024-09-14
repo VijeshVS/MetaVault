@@ -23,7 +23,7 @@ export const createWallet = (mnemonicString:string | null,token: string,walletsL
   const path = `m/44'/${tokenId}'/${walletsLength}'/0'`;
   const derivedSeed = derivePath(path, seed.toString("hex")).key;
   const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
-  const publicKey = Keypair.fromSecretKey(secret).publicKey.toBase58()
+  const publicKey = Keypair.fromSecretKey(secret).publicKey
   const privateKey = bs58.encode(secret)
   
  return {

@@ -11,6 +11,7 @@ import {
 import { Toggle } from "@/components/ui/toggle";
 import { Eye } from "lucide-react";
 import { toast } from "sonner";
+import { PublicKey } from "@solana/web3.js";
 
 function getHidePrivatePass(text: string) {
   let pass = "";
@@ -27,7 +28,7 @@ const WalletCard = ({
 }: {
   token: string;
   balance: number;
-  publicKey: string;
+  publicKey: PublicKey;
   privateKey: string;
 }) => {
   const [reveal, setReveal] = useState(false);
@@ -48,7 +49,7 @@ const WalletCard = ({
       <CardHeader>
         <CardTitle className="text-3xl">{token} Wallet</CardTitle>
         <CardDescription className="text-lg">
-          Balance: {balance}$
+          Balance: {balance} SOL
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -61,10 +62,10 @@ const WalletCard = ({
                 toast.success("Public key has been copied!!", {
                   duration: 2000,
                 });
-                navigator.clipboard.writeText(publicKey);
+                navigator.clipboard.writeText(publicKey.toBase58());
               }}
             >
-              {publicKey}
+              {publicKey.toBase58()}
             </h1>
 
             <h1
@@ -73,10 +74,10 @@ const WalletCard = ({
                 toast.success("Public key has been copied!!", {
                   duration: 2000,
                 });
-                navigator.clipboard.writeText(publicKey);
+                navigator.clipboard.writeText(publicKey.toBase58());
               }}
             >
-              {publicKey.slice(0, 12)}....
+              {publicKey.toBase58().slice(0, 12)}....
             </h1>
           </div>
           <div className="flex justify-between w-full items-center border-2 p-1 lg:p-2 rounded-xl">
