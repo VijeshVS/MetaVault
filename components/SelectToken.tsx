@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import { walletAtom } from "@/store/store";
 import { walletType } from "@/interfaces/types";
 import { motion } from "framer-motion";
+import { Card, CardDescription, CardTitle } from "./ui/card";
 
 const SelectToken = () => {
   const [token, setToken] = useState<string>("");
@@ -37,16 +38,30 @@ const SelectToken = () => {
         duration: 0.5,
         ease: "easeInOut",
       }}
-      className="flex flex-col space-y-4"
+      className="flex flex-col space-y-4 px-12"
     >
-      <h1 className="text-2xl font-semibold">
-        Select the token for which the wallet has to be created
-      </h1>
-      <div className="flex space-x-4">
-        <Button size="lg" className="text-xl" onClick={() => setToken("Solana")} variant="outline">
-          Solana
-        </Button>
-      </div>
+      <Card className="p-6">
+        <CardTitle className="text-2xl font-semibold">Create Wallet</CardTitle>
+        <CardDescription className="text-lg">Select a token to create a wallet</CardDescription>
+        <div className="flex space-x-4 mt-4">
+          <Button
+            size="lg"
+            className="text-xl"
+            onClick={() => setToken("Solana")}
+            variant="default"
+          >
+            Solana
+          </Button>
+          <Button
+            size="lg"
+            className="text-xl"
+            onClick={() => setToken("Ethereum")}
+            variant="default"
+          >
+            Ethereum
+          </Button>
+        </div>
+      </Card>
     </motion.div>
   );
 };

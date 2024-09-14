@@ -12,7 +12,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { walletType } from "@/interfaces/types";
-import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import {
+  clusterApiUrl,
+  Connection,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+} from "@solana/web3.js";
 import { PlaneIcon, Trophy } from "lucide-react";
 import { split } from "postcss/lib/list";
 import { useState } from "react";
@@ -22,8 +27,12 @@ export function DialogDemo({ publicKey }: { publicKey: PublicKey }) {
   const [sol, setSol] = useState("");
 
   async function airdropSOL(publicKey: PublicKey) {
+    toast.info("Airdropping!!");
     const connection = new Connection(clusterApiUrl("devnet"));
-    const airdropsignature = await connection.requestAirdrop(publicKey, Number.parseInt(sol)*LAMPORTS_PER_SOL);
+    const airdropsignature = await connection.requestAirdrop(
+      publicKey,
+      Number.parseInt(sol) * LAMPORTS_PER_SOL
+    );
     await connection.confirmTransaction({ signature: airdropsignature } as any);
   }
 
@@ -57,15 +66,15 @@ export function DialogDemo({ publicKey }: { publicKey: PublicKey }) {
         </div>
         <DialogClose className="flex justify-end cursor-default">
           <Button
-            onClick={() =>
+            onClick={() => {
               airdropSOL(publicKey)
                 .then(() => {
                   toast.success("Airdropped successfully!!");
                 })
                 .catch((e) => {
-                  toast.info("Airdrop limit breached!!");
-                })
-            }
+                  toast.error("Airdrop limit breached!!");
+                });
+            }}
             type="submit"
           >
             Airdrop

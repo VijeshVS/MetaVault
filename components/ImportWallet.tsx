@@ -52,7 +52,7 @@ const ImportWallet = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center space-y-4 h-full mt-24">
+    <div className="flex flex-col justify-center space-y-4 h-full mt-24 px-12">
       <Label className="self-start font-semibold text-3xl">
         Enter Private Key
       </Label>
