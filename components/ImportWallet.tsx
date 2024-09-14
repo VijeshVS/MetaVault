@@ -9,6 +9,7 @@ import { walletAtom } from "@/store/store";
 import bs from "bs58";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { saveWallets } from "@/lib/utils";
 
 const ImportWallet = () => {
   const [privateKey, setPrivateKey] = useState("");
@@ -38,11 +39,21 @@ const ImportWallet = () => {
         ...wallets,
         {
           token: "Solana",
-          publicKey: key_pair.publicKey,
+          publicKey: key_pair.publicKey.toBase58(),
           privateKey: bs.encode(key_pair.secretKey),
           balance: 0,
         },
       ]);
+
+      saveWallets([
+        ...wallets,
+        {
+          token: "Solana",
+          publicKey: key_pair.publicKey.toBase58(),
+          privateKey: bs.encode(key_pair.secretKey),
+          balance: 0,
+        },
+      ])
       toast.success("Wallet imported successfully !!")
       router.push('/dashboard')
     } catch (e) {

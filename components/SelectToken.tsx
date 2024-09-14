@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { createWallet } from "@/lib/utils";
+import { createWallet, saveWallets } from "@/lib/utils";
 import { useRecoilState } from "recoil";
 import { walletAtom } from "@/store/store";
 import { walletType } from "@/interfaces/types";
@@ -23,6 +23,7 @@ const SelectToken = () => {
         wallets.length
       );
       setWallets([...wallets, wallet as walletType]);
+      saveWallets([...wallets, wallet as walletType])
       router.push("/dashboard");
       toast.success(`${token} wallet has been created successfully`, {
         duration: 2000,
@@ -51,14 +52,6 @@ const SelectToken = () => {
             variant="default"
           >
             Solana
-          </Button>
-          <Button
-            size="lg"
-            className="text-xl"
-            onClick={() => setToken("Ethereum")}
-            variant="default"
-          >
-            Ethereum
           </Button>
         </div>
       </Card>

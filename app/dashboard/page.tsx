@@ -2,44 +2,30 @@
 import { Button } from "@/components/ui/button";
 import WalletCard from "@/components/WalletCard";
 import WalletEmptyComponent from "@/components/WalletEmptyComponent";
-import { walletAtom } from "@/store/store";
+import { refreshAtom, walletAtom } from "@/store/store";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { walletType } from "@/interfaces/types";
-import { clusterApiUrl, Connection } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { RefreshCcw } from "lucide-react";
+import { getWallets } from "@/lib/utils";
 
-async function updateBalances(wallets: walletType[]) {
-  const ans = []
-  const connection = new Connection(clusterApiUrl("devnet"));
-  for (let i = 0; i < wallets.length; i++) {
-    const wall = {...wallets[i]};
-    const balance = await connection.getBalance(wall.publicKey);
-    wall.balance = balance/1e9;
-    ans.push(wall)
-  }
-
-  return ans;
-}
 
 const Page = () => {
   const router = useRouter();
   const [wallets, setWallets] = useRecoilState(walletAtom);
   const [loading, setLoading] = useState<boolean>(false);
+  const [refresh,setRefresh] = useRecoilState(refreshAtom);
 
-  useEffect(() => {
-    let walls = [...wallets];
-    if (walls) {
-      setLoading(true);
-      updateBalances(walls).then((res) => {
-        setWallets(res);
-        setLoading(false);
-      });
-    }
-  }, []);
+  useEffect(()=>{
+    setLoading(true)
+    getWallets().then((res)=>{
+      setWallets(res)
+      setLoading(false)
+    })
+  },[refresh])
 
   useEffect(() => {
     const phraseString: string | null = localStorage.getItem("phrases");
@@ -72,6 +58,7 @@ const Page = () => {
         <Button>
           <RefreshCcw onClick={()=>{
             // Refresh the wallets to update balance after transactions
+            setRefresh((r)=>!r)
           }} size={20}/>
         </Button>
       </div>
@@ -90,7 +77,7 @@ const Page = () => {
               key={w.privateKey}
               token={w.token}
               balance={w.balance}
-              publicKey={w.publicKey}
+              publicKey={new PublicKey(w.publicKey)}
               privateKey={w.privateKey}
             />
           );
