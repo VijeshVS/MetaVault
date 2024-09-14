@@ -11,7 +11,7 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <div className="flex justify-between">
+    <div className="pt-6 px-6 lg:pt-12 lg:px-12  flex justify-between">
         <div className="flex items-center space-x-3">
           <Avatar>
             <Lock className='w-5 h-5 lg:w-8 lg:h-8'/>

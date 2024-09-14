@@ -60,7 +60,7 @@ const Page = () => {
     );
 
   return wallets.length > 0 ? (
-    <main className="h-full flex flex-col mt-8">
+    <main className="h-full flex flex-col mt-8 px-6">
       <div className="flex justify-start lg:justify-end space-x-2 mt-6">
         <Button onClick={() => router.push("/import-wallet")}>
           Import wallet

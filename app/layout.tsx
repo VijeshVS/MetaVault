@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className={`${dmSans.className}`} lang="en">
-      <body className="p-6 lg:p-12 h-screen">
+      <body className="h-screen">
         <Providers>
           <Header />
           {children}

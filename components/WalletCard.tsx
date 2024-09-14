@@ -12,6 +12,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { Eye } from "lucide-react";
 import { toast } from "sonner";
 import { PublicKey } from "@solana/web3.js";
+import { DialogDemo } from "./AirdropAlert";
 
 function getHidePrivatePass(text: string) {
   let pass = "";
@@ -47,7 +48,10 @@ const WalletCard = ({
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-3xl">{token} Wallet</CardTitle>
+        <CardTitle className="flex justify-between">
+          <h1 className="text-3xl">{token} Wallet</h1>
+          {/* <DialogDemo publicKey={publicKey} /> */}
+        </CardTitle>
         <CardDescription className="text-lg">
           Balance: {balance} SOL
         </CardDescription>
@@ -103,7 +107,8 @@ const WalletCard = ({
                 }}
                 className="font-semibold lg:hidden cursor-pointer"
               >
-                {privateCurrent.slice(0, 12)}{reveal?"....":""}
+                {privateCurrent.slice(0, 12)}
+                {reveal ? "...." : ""}
               </h1>
             </div>
             <Toggle
