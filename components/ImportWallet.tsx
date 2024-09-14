@@ -25,6 +25,15 @@ const ImportWallet = () => {
       const key_pair = Keypair.fromSecretKey(
         new Uint8Array(JSON.parse(privateKey))
       );
+
+      for(let i = 0;i<wallets.length;i++){
+        if(wallets[i].privateKey == bs.encode(new Uint8Array(JSON.parse(privateKey)))){
+          toast.info("Wallet already exists!!");
+          setPrivateKey("");
+          return;
+        }
+      }
+
       setWallets([
         ...wallets,
         {
