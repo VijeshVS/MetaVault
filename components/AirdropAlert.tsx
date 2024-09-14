@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { walletType } from "@/interfaces/types";
-import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { PlaneIcon, Trophy } from "lucide-react";
 import { split } from "postcss/lib/list";
 import { useState } from "react";
@@ -23,7 +23,8 @@ export function DialogDemo({ publicKey }: { publicKey: PublicKey }) {
 
   async function airdropSOL(publicKey: PublicKey) {
     const connection = new Connection(clusterApiUrl("devnet"));
-    await connection.requestAirdrop(publicKey, Number.parseInt(sol));
+    const airdropsignature = await connection.requestAirdrop(publicKey, Number.parseInt(sol)*LAMPORTS_PER_SOL);
+    await connection.confirmTransaction({ signature: airdropsignature } as any);
   }
 
   return (

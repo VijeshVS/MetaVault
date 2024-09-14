@@ -50,7 +50,7 @@ const WalletCard = ({
       <CardHeader>
         <CardTitle className="flex justify-between">
           <h1 className="text-3xl">{token} Wallet</h1>
-          {/* <DialogDemo publicKey={publicKey} /> */}
+          <DialogDemo publicKey={publicKey} />
         </CardTitle>
         <CardDescription className="text-lg">
           Balance: {balance} SOL
