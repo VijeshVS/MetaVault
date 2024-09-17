@@ -12,20 +12,19 @@ import { PublicKey } from "@solana/web3.js";
 import { RefreshCcw } from "lucide-react";
 import { getWallets } from "@/lib/utils";
 
-
 const Page = () => {
   const router = useRouter();
   const [wallets, setWallets] = useRecoilState(walletAtom);
   const [loading, setLoading] = useState<boolean>(false);
-  const [refresh,setRefresh] = useRecoilState(refreshAtom);
+  const [refresh, setRefresh] = useRecoilState(refreshAtom);
 
-  useEffect(()=>{
-    setLoading(true)
-    getWallets().then((res)=>{
-      setWallets(res)
-      setLoading(false)
-    })
-  },[refresh])
+  useEffect(() => {
+    setLoading(true);
+    getWallets().then((res) => {
+      setWallets(res);
+      setLoading(false);
+    });
+  }, [refresh]);
 
   useEffect(() => {
     const phraseString: string | null = localStorage.getItem("phrases");
@@ -56,10 +55,12 @@ const Page = () => {
           Create wallet
         </Button>
         <Button>
-          <RefreshCcw onClick={()=>{
-            // Refresh the wallets to update balance after transactions
-            setRefresh((r)=>!r)
-          }} size={20}/>
+          <RefreshCcw
+            onClick={() => {
+              setRefresh((r) => !r);
+            }}
+            size={20}
+          />
         </Button>
       </div>
       <motion.div

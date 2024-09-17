@@ -41,7 +41,7 @@ const SelectPhraseCard = () => {
   }, [phraseWords]);
 
   return (
-    <Card className="w-[550px]">
+    <Card className="w-[300px] md:w-[550px]">
       <CardHeader>
         <CardTitle>Enter Custom Phrases</CardTitle>
         <CardDescription>
@@ -50,7 +50,7 @@ const SelectPhraseCard = () => {
       </CardHeader>
       <CardContent>
         <form>
-          <div className="grid grid-cols-4 w-full items-center gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 w-full items-center gap-4">
             {phraseWords.map((word, index) => (
               <Input
                 key={index}
@@ -68,7 +68,7 @@ const SelectPhraseCard = () => {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between mt-4 md:mt-0">
         <Button onClick={confirmPhrases} disabled={submitDisabled}>
           Submit
         </Button>
