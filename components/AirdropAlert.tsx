@@ -9,15 +9,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   clusterApiUrl,
   Connection,
   LAMPORTS_PER_SOL,
   PublicKey,
 } from "@solana/web3.js";
-import { ArrowDownFromLine, ArrowDownToLine, HandCoins, PlaneIcon, Trophy } from "lucide-react";
-import { split } from "postcss/lib/list";
+import { ArrowDownToLine } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -26,19 +24,18 @@ export function DialogDemo({ publicKey }: { publicKey: PublicKey }) {
 
   async function airdropSOL(publicKey: PublicKey) {
     let sl = Number.parseInt(sol);
-    if(sl > 10) sl = 10;
+    if(sl > 5) sl = 5;
     toast.info(`Requesting airdrop of ${sl} SOL !!`);
     const connection = new Connection(clusterApiUrl("devnet"));
-    let amt = Number.parseInt(sol) * LAMPORTS_PER_SOL;
-    if (amt > 10 * LAMPORTS_PER_SOL) {
-      amt = 10 * LAMPORTS_PER_SOL;
-    }
+    let amt = sl * LAMPORTS_PER_SOL;
     const airdropSignature = await connection.requestAirdrop(
       publicKey,
       amt
     );
+    
     // @ts-ignore
     await connection.confirmTransaction({signature: airdropSignature});
+    
   }
 
   return (
@@ -55,7 +52,7 @@ export function DialogDemo({ publicKey }: { publicKey: PublicKey }) {
             Airdrop some SOL for your wallet
           </DialogDescription>
           <DialogDescription className="font-medium text-red-400">
-            Max airdrop is 10 SOL
+            Max airdrop is 5 SOL
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col space-y-2 mt-2">
